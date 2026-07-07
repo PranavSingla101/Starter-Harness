@@ -1,0 +1,1 @@
+This is Progress-tracker.md. It tracks and checks phases. It tells the agent what phase it is currently working on. 

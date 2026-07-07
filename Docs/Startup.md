@@ -1,0 +1,1 @@
+This tells us how to start a project locally or how to set it up, both for the first time and for every day. 
