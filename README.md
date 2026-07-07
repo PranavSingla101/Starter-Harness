@@ -2,6 +2,8 @@
 
 This is the base scaffold — the "harness" — used to bootstrap every new project. It is not an app itself. It's the surrounding rig: the doc templates, feature-spec structure, and setup tooling that every new project starts from, so you're not recreating the same empty files by hand each time.
 
+See `CLAUDE.md` for the note Claude Code reads on open — it points to `Create-details.md` for how to use this harness.
+
 ## What's in here
 
 - **`Docs/`** — blank templates to fill in per project:
