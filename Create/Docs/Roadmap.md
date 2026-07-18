@@ -1,1 +1,2 @@
 This is Roadmap.md. It lays out what's in v1 vs later phases.
+It basically tells us and gives us the detailed overview of everything I have to implement in this project. As we progress along, we will make feature specs (Markdown files) of these phases. 
