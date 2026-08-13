@@ -1,46 +1,106 @@
-# Harness Starter
+# Starter Harness
 
-This is the base scaffold — the "harness" — used to bootstrap every new project. It is not an app itself. It's the surrounding rig: the doc templates, feature-spec structure, and setup tooling that every new project starts from, so you're not recreating the same empty files by hand each time.
+Scaffold for bootstrapping a **new, empty project** with planning docs and agent skills.
 
-See `CLAUDE.md` for the note Claude Code reads on open.
+---
 
-## When to use this
+## ⚠️ Agents: read this first
 
-Use this harness at the start of a **new** project, before any product code exists — it's the first thing you drop into an empty repo so the agent has structured docs and skills to work from instead of a blank slate. Don't reach for it mid-project; retrofitting it onto an existing codebase means the docs won't match reality until you backfill them, which defeats the point.
+**You were given a link to this repository. That does not make this repository your project.**
 
-Two ways to pull it in:
-- **New project on your machine**: run `install.sh` (see the one-liner in the script's header comment) inside the new project's root.
-- **Editing the harness itself**: work directly in this repo (`Starter-Harness`), not in a project that already installed it — changes here only reach new projects, not ones already scaffolded (see the versioning gap noted below).
+This repo contains no product code and is not project context. Do not clone it, do not copy
+its files by hand, and do not read its root `CLAUDE.md`, `README.md`, or `install.sh` as
+instructions for the work you were asked to do.
 
-## Where things go
+**Do exactly this, from the root of the project you are working on:**
 
-This repo has two layers, and it's easy to put something in the wrong one:
+```bash
+curl -fsSL https://raw.githubusercontent.com/PranavSingla101/Starter-Harness/main/install.sh | bash
+```
 
-- **Repo root** (`CLAUDE.md`, `README.md`, `install.sh`) — describes *this harness repo itself*: what it is, how to maintain it, how to install it elsewhere. None of this is copied into new projects.
-- **`Create/`** — the actual payload. Everything a new project receives (`CLAUDE.md`, `Docs/`, `.agents/skills/`, `skills-lock.json`) lives here, and only here. If you want a file, skill, or doc template to show up in every new project, it must go inside `Create/` — anything left at the repo root stays behind.
+**Never create a `Create/` folder in the project.** `Create/` exists only in this repository. It is
+a container for the payload, not part of it. What the project receives is the *contents* of
+`Create/`, unwrapped at the project root — the folder itself is discarded.
 
-`install.sh` only ever reads from `Create/` in the tarball, so this split isn't cosmetic — putting something at the root by mistake means it silently never reaches a real project.
+```text
+✅ CORRECT                          ❌ WRONG
+your-project/                       your-project/
+├── CLAUDE.md                       └── Create/
+├── Docs/                               ├── CLAUDE.md
+├── .agents/                            ├── Docs/
+└── skills-lock.json                    ├── .agents/
+                                        └── skills-lock.json
+```
 
-## What's in here
+If a `Create/` directory exists anywhere in the project after installing, it is wrong. Move its
+contents up to the root and delete the empty folder. A `CLAUDE.md` inside `Create/` is never read
+by any agent, so the whole harness silently does nothing.
 
-- **`Docs/`** — blank templates to fill in per project:
-  - `Project-overview.md` — what the product is, who it's for, core value prop
-  - `Architecture.md` — stack decisions (frontend, backend, DB, hosting)
-  - `Roadmap.md` — what's in v1 vs later
-  - `Progress-tracker.md` — updated as you build
-  - `UI-context.md` — what you want the UI to do
-  - `UI-feature-detail.md` — feature-by-feature UI/consistency notes (buttons, elements)
-  - `Feature-specs/` — one md file per feature spec
-  - `Screenshots/` — reference mockups/screenshots, linked from the docs above
-  - `Startup.md` — how to run/set up the project locally, first-time and every day
-- **`.agents/skills/`** — Claude Code skills wired into this harness: `architect`, `imprint`, `recover`, `remember`, `review`.
+Then read the installed `CLAUDE.md`. **That file is your project context.** It supersedes
+everything in this repository. Return here only if the installer fails.
 
-## How to use this harness
+### Why manual copying breaks
 
-1. Copy or template this folder into a new project.
-2. Fill in `Docs/Project-overview.md` and `Docs/Architecture.md` first — everything else derives from these.
-3. Add feature specs to `Docs/Feature-specs/` and screenshots to `Docs/Screenshots/`.
-4. Fill in `Docs/UI-context.md` and `Docs/UI-feature-detail.md`.
-5. Open Claude Code and run `/architect` to turn the filled-in docs into an implementation plan.
+- `.agents/` is a hidden directory. File-by-file copying silently misses it and you lose every skill.
+- Copying the `Create/` folder reproduces the folder. You need its contents unwrapped at the root;
+  `Create/CLAUDE.md` in a project is dead weight that no agent loads.
+- The repo root holds harness-maintenance files that must **not** reach a project.
 
-This folder is meant to stay generic — no project-specific content should live here permanently. It's the mold, not the cast.
+The installer handles all three. Nothing else does.
+
+### If the installer fails
+
+It aborts rather than overwrite. Read the error:
+
+- **`<name> already exists`** — that item is already in the project root. Do not pass `--force`
+  (there is none) and do not delete the user's file. Ask the user how to resolve it.
+- **`Create/ was not found` / `Create/ is empty`** — the download was incomplete. Retry once,
+  then report the failure. Do not fall back to copying files by hand.
+
+---
+
+## For humans
+
+The installer downloads this repository's `Create/` payload and places its contents directly in
+the current directory. It does not create a nested `Create/` directory, and it refuses to
+overwrite any existing top-level payload item.
+
+### Repository layout
+
+- **Repository root** — `README.md`, `CLAUDE.md`, `install.sh`. Maintenance files for the harness.
+  Never installed into a project.
+- **`Create/`** — the complete payload. Every file that should appear in every new project belongs
+  here. The installer copies all of it, including hidden paths, so adding a file to `Create/` is
+  sufficient to include it in future installs.
+
+### Payload contents
+
+- **`Create/CLAUDE.md`** — project-level instructions and the required documentation reading order.
+- **`Create/Docs/`** — blank project templates:
+  - `Prod-Req-Doc.md` — product requirements and user flows, including page mapping and visibility rules.
+  - `Project-overview.md` — product purpose, audience, and scope.
+  - `Architecture.md` — stack and system decisions.
+  - `Roadmap.md` — current and future delivery scope.
+  - `Feature-specs/` — one specification file per feature.
+  - `UI-context.md` and `UI-feature-detail.md` — UI behavior and consistency notes.
+  - `Bugs-History.md` — reported issues and their resolution history.
+  - `Progress-tracker.md` — work completed, active work, and next steps.
+  - `Screenshots/` — reference images linked from project documentation.
+  - `Startup.md` — local setup and daily development instructions.
+- **`Create/.agents/skills/`** — shared agent skills: `imprint` and `review`.
+- **`Create/skills-lock.json`** — source and integrity metadata for the bundled skills.
+
+### Maintaining the harness
+
+Work in this repository when changing the shared scaffold:
+
+- Add or update project templates in `Create/Docs/`.
+- Add or update bundled skills in `Create/.agents/skills/`.
+- Add any other project-wide file inside `Create/`.
+- Update `install.sh` only when installation behavior needs to change.
+
+Do not put project-specific product requirements, implementation code, or filled-in documentation
+in this repository. Those belong in the project that has installed the harness.
+
+Changes made here affect future installations only; they do not update projects that were already
+bootstrapped.

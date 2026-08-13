@@ -11,20 +11,36 @@ REPO="PranavSingla101/Starter-Harness"
 BRANCH="main"
 TARBALL="https://github.com/${REPO}/archive/refs/heads/${BRANCH}.tar.gz"
 
-if [ -e "CLAUDE.md" ] || [ -e "Docs" ] || [ -e ".agents" ]; then
-  echo "Error: CLAUDE.md, Docs/, or .agents/ already exists in $(pwd). Aborting to avoid overwriting." >&2
-  exit 1
-fi
-
+DEST="$(pwd -P)"
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
 curl -fsSL "$TARBALL" | tar -xz -C "$TMP_DIR"
 
 SRC="$TMP_DIR/Starter-Harness-${BRANCH}/Create"
-cp "$SRC/CLAUDE.md" ./CLAUDE.md
-cp -R "$SRC/Docs" ./Docs
-cp -R "$SRC/.agents" ./.agents
-mkdir -p ./Docs/Feature-specs ./Docs/Screenshots
 
-echo "Installed CLAUDE.md, Docs/, and .agents/ into $(pwd)"
+if [ ! -d "$SRC" ]; then
+  echo "Error: Create/ was not found in the downloaded harness." >&2
+  exit 1
+fi
+
+shopt -s dotglob nullglob
+PAYLOAD=("$SRC"/*)
+
+if [ "${#PAYLOAD[@]}" -eq 0 ]; then
+  echo "Error: Create/ is empty in the downloaded harness." >&2
+  exit 1
+fi
+
+for SOURCE_ITEM in "${PAYLOAD[@]}"; do
+  NAME="${SOURCE_ITEM##*/}"
+
+  if [ -e "$DEST/$NAME" ] || [ -L "$DEST/$NAME" ]; then
+    echo "Error: $NAME already exists in $DEST. Aborting to avoid overwriting." >&2
+    exit 1
+  fi
+done
+
+tar -C "$SRC" -cf - . | tar -C "$DEST" -xf -
+
+echo "Installed the Create/ payload into $DEST"

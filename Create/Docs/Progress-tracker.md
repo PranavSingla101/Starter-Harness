@@ -1,30 +1,44 @@
 # Progress Tracker
 
-Update this file after every completed feature. Any AI agent reading this should immediately know what is done, what is in progress, and what is next.
+Update this file after each meaningful change. It should let a new contributor or agent understand the current state without reconstructing the project history.
 
----
+## Current status
 
-## Current Status
+- **Current phase:**
+- **Active feature:**
+- **Last completed:**
+- **Next action:**
+- **Last updated:**
+- **Blockers:**
 
-**Phase:**
-**Last completed:**
-**Next:**
+## Roadmap progress
 
----
+| Phase | Feature or deliverable | Status | Evidence or link | Next step |
+| --- | --- | --- | --- | --- |
+| | | Not started | | |
 
-## Progress
+Status: Not started | In progress | Blocked | In review | Complete
 
-# Write phases here with checkboxes indicating which topics or parts in phases are completed
+## Active work
 
----
+| Item | Owner | Started | Current state | Blocker or dependency |
+| --- | --- | --- | --- | --- |
+| | | | | |
 
-## Decisions Made During Build
+## Decisions made during build
 
-# Add decisions here as they are made during implementation. 
+| Date | Decision | Rationale | Affected files or features |
+| --- | --- | --- | --- |
+| | | | |
 
+## Validation record
 
----
+| Date | Change or feature | Checks run | Result | Follow-up |
+| --- | --- | --- | --- | --- |
+| | | | | |
 
-## Notes
+## Notes and handoff
 
-# Add notes here as the build progresses — workarounds, patterns, anything that differs from the context files.
+- **Known limitations:**
+- **Workarounds:**
+- **Next session should start with:**

@@ -1,2 +1,37 @@
-This is Roadmap.md. It lays out what's in v1 vs later phases.
-It basically tells us and gives us the detailed overview of everything I have to implement in this project. As we progress along, we will make feature specs (Markdown files) of these phases. 
+# Roadmap
+
+## Planning assumptions
+
+- **Planning horizon:**
+- **Release cadence:**
+- **Primary success measure:**
+
+## Phases
+
+| Phase | Outcome | Included features | Dependencies | Risks | Definition of done | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| Foundation | | | | | | Not started |
+
+## Feature backlog
+
+| ID | Feature | User value | Priority | Target phase | Dependencies | Status |
+| --- | --- | --- | --- | --- | --- | --- |
+| F-001 | | | Must | | | Planned |
+
+## Milestones
+
+| Milestone | Target date | Required outcomes | Owner | Status |
+| --- | --- | --- | --- | --- |
+| | | | | |
+
+## Deferred work
+
+| Item | Why deferred | Reconsider when |
+| --- | --- | --- |
+| | | |
+
+## Change log
+
+| Date | Change | Reason | Impacted phases |
+| --- | --- | --- | --- |
+| | | | |

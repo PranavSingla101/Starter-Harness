@@ -21,11 +21,11 @@ Before reviewing anything, establish the benchmark.
 
 Read in this order:
 
-- The implementation plan from `/architect` if one exists
+- The feature's spec in `Docs/Feature-specs/` if one exists
 - The feature description or task that was given
-- Any relevant context files — architecture boundaries, code standards, design rules
+- Any relevant context files — `Docs/Architecture.md` for boundaries and quality gates, `Docs/UI-context.md` and `ui-registry.md` for design rules
 
-If no plan exists, ask the developer to describe what the feature was supposed to do before reviewing. You cannot verify correctness without knowing what correct looks like.
+If no spec exists, ask the developer to describe what the feature was supposed to do before reviewing. You cannot verify correctness without knowing what correct looks like.
 
 ---
 
